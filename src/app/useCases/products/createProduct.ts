@@ -3,11 +3,19 @@ import { Product } from "../../models/Product";
 
 export async function createProducts(req: Request, res: Response) {
   try {
-    const products = await Product.create();
+    const imagePath = req.file?.filename;
+    const { name, description, price, category, ingredients } = req.body;
 
-    console.log(req.body);
+    const product = await Product.create({
+      name,
+      description,
+      imagePath,
+      price: Number(price),
+      category,
+      ingredients: JSON.parse(ingredients),
+    });
 
-    res.json("ok");
+    res.status(201).json(product);
   } catch {
     res.sendStatus(500);
   }
