@@ -6,6 +6,11 @@ import { listCategories } from "./app/useCases/categories/listCategories";
 import { createCategory } from "./app/useCases/categories/createCategory";
 import { listProducts } from "./app/useCases/products/listProdutcts";
 import { createProducts } from "./app/useCases/products/createProduct";
+import { listProductsByCategory } from "./app/useCases/categories/listProductsByCategory";
+import { listOrders } from "./app/useCases/orders/listOrders";
+import { createOrder } from "./app/useCases/orders/createOrder";
+import { changeOrderStatus } from "./app/useCases/orders/changeOrderStatus";
+import { cancelOrder } from "./app/useCases/orders/cancelOrder";
 
 export const router = Router();
 
@@ -28,22 +33,12 @@ router.get("/products", listProducts);
 
 router.post("/products", upload.single("image"), createProducts);
 
-router.get("/categories/:categoryId/products", (req, res) => {
-  res.send("ok");
-});
+router.get("/categories/:categoryId/products", listProductsByCategory);
 
-router.get("/orders", (req, res) => {
-  res.send("ok");
-});
+router.get("/orders", listOrders);
 
-router.post("/orders", (req, res) => {
-  res.send("ok");
-});
+router.post("/orders", createOrder);
 
-router.patch("/orders/:order:Id", (req, res) => {
-  res.send("ok");
-});
+router.patch("/orders/:orderId", changeOrderStatus);
 
-router.delete("/orders/:order:Id", (req, res) => {
-  res.send("ok");
-});
+router.delete("/orders/:orderId", cancelOrder);
